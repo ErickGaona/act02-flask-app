@@ -5,27 +5,22 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    # URL del archivo de datos
     url = "https://gist.githubusercontent.com/reroes/502d11c95f1f8a17d300ece914464c57/raw/872172ebb60e22e95baf8f50e2472551f49311ff/gistfile1.txt"
 
-    # Descargar el archivo
+    
     respuesta = requests.get(url)
     texto = respuesta.text
 
-    # Separar por líneas
     lineas = texto.strip().split('\n')
 
-    # Lista para guardar los datos filtrados
     personas = []
 
-    # Recorremos las líneas
     for linea in lineas:
-        datos = linea.split(";")  # Separamos por ";"
+        datos = linea.split(";")  
         id_persona = datos[0]
-        if id_persona[0] in ['3', '4', '5', '7']:  # Solo IDs que empiezan en 3, 4, 5 o 7
+        if id_persona[0] in ['3', '4', '5', '7']:  
             personas.append(datos)
 
-    # HTML directamente en el código, usando Jinja2
     html = """
     <!DOCTYPE html>
     <html>
